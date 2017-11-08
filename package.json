@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test-watch": "jasmine-node --autotest .",
-    "test": "jasmine-node .",
+    "test-watch": "jasmine-node --autotest --verbose --color .",
+    "test": "jasmine-node --verbose --color .",
     "coverage": "istanbul cover --include-all-sources jasmine-node ."
   },
   "author": "",

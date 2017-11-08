@@ -1,6 +1,7 @@
 const DB = require('./db')
 const config = require('./config.json')
 const TABLE_NAME = 'cloudmongo_sessions'
+const LOGIN_PAGE = '/login'
 
 /**
   * Checks to see if an existing session exists. If it does not then
@@ -8,11 +9,17 @@ const TABLE_NAME = 'cloudmongo_sessions'
 **/
 const checkSession = (req, res, next) => {
   // Check if session exists
-  if ('sessionId' in req.cookies) {
-    // If session exists then check if session is valid
-    const sessionId = req.cookies['sessionId']
-    checkValidSession()
-  } 
+  if (req.cookies) {
+    if ('sessionId' in req.cookies) {
+      // If session exists then check if session is valid
+      const sessionId = req.cookies['sessionId']
+      checkValidSession()
+    } else {
+      res.redirect(LOGIN_PAGE)
+    }
+  } else {
+    res.redirect(LOGIN_PAGE)
+  }
 }
 
 /**
