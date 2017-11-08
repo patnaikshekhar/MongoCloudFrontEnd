@@ -1,9 +1,31 @@
 const mock = require('mock-require')
 
+const mockDBHelper = () => {
+  return {
+    get: (table, key, callback) => {
+      if (key == '456') {
+        callback({
+          sessionId: key,
+          sessionStart: Date.now(),
+          customerId: 'test@test.com'
+        })
+      } else if (key == '789') {
+        callback({
+          sessionId: key,
+          sessionStart: Date.now() - 370000,
+          customerId: 'test@test.com'
+        })
+      } else {
+        callback(null)
+      }
+    }
+  }
+}
+
 describe('Session Manager', () => {
   
+  mock('../db', mockDBHelper())
   const SM = require('../session')
-  mockDBHelper()
 
   describe('checkValidSession', () => {
     
@@ -32,36 +54,34 @@ describe('Session Manager', () => {
   describe('checkSession', () => {
     it('should return login page if no cookie is passed', () => {
       const res = {
-        redirect(location) {
-          
-        }
+        redirect(location) {}
       }
       
       spyOn(res, 'redirect')
       SM.checkSession({}, res, () => {})
       expect(res.redirect).toHaveBeenCalledWith('/login')
     })
+
+    it('should execute the next function if valid cookie is passed and add customer id to request', (done) => {
+      var req = { cookies: { sessionId: '456' } }
+
+      SM.checkSession(req, {}, () => {
+        expect(req.customerId).toBe('test@test.com')
+        done()
+      })
+    })
+    
+    it('should return login page if cookie is passed with incorrect session', (done) => {
+      const res = {
+        redirect(location) {}
+      }
+      
+      spyOn(res, 'redirect')
+      var req = { cookies: { sessionId: '123' } }
+
+      SM.checkSession(req, res, () => {})
+      expect(res.redirect).toHaveBeenCalledWith('/login')
+      done()
+    })
   })
 })
-
-const mockDBHelper = () => {
-  mock('../db', {
-    get: (table, key, callback) => {
-      if (key == '456') {
-        callback({
-          sessionId: key,
-          sessionStart: Date.now(),
-          customerId: 'test@test.com'
-        })
-      } else if (key == '789') {
-        callback({
-          sessionId: key,
-          sessionStart: Date.now() - 370000,
-          customerId: 'test@test.com'
-        })
-      } else {
-        callback(null)
-      }
-    }
-  })
-}

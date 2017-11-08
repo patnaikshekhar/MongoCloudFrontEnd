@@ -13,7 +13,14 @@ const checkSession = (req, res, next) => {
     if ('sessionId' in req.cookies) {
       // If session exists then check if session is valid
       const sessionId = req.cookies['sessionId']
-      checkValidSession()
+      checkValidSession(sessionId, (valid, customerId) => {
+        if (valid) {
+          req.customerId = customerId
+          next()
+        } else {
+          res.redirect(LOGIN_PAGE)
+        }
+      })
     } else {
       res.redirect(LOGIN_PAGE)
     }
@@ -31,7 +38,7 @@ const checkValidSession = (sessionId, callback) => {
       if (value.sessionStart) {
         const timeout = config['SessionTimeout']
         if (Date.now() - value.sessionStart <= timeout) {
-          callback(true)
+          callback(true, value.customerId)
         } else {
           callback(false)
         }
