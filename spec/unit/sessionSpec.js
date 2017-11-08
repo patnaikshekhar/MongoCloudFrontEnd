@@ -24,8 +24,8 @@ const mockDBHelper = () => {
 
 describe('Session Manager', () => {
   
-  mock('../db', mockDBHelper())
-  const SM = require('../session')
+  mock('../../lib/db', mockDBHelper())
+  const SM = require('../../lib/session')
 
   describe('checkValidSession', () => {
     
