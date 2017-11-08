@@ -1,0 +1,22 @@
+{
+  "name": "mongo_cloud_frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test-watch": "jasmine-node --autotest .",
+    "test": "jasmine-node .",
+    "coverage": "istanbul cover --include-all-sources jasmine-node ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "mock-require": "^2.0.2"
+  }
+}
