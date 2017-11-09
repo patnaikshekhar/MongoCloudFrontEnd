@@ -54,7 +54,7 @@ describe('Session Manager', () => {
   describe('checkSession', () => {
     it('should return login page if no cookie is passed', () => {
       const res = {
-        redirect(location) {}
+        redirect: (location) => null
       }
       
       spyOn(res, 'redirect')
@@ -73,7 +73,7 @@ describe('Session Manager', () => {
     
     it('should return login page if cookie is passed with incorrect session', (done) => {
       const res = {
-        redirect(location) {}
+        redirect: (location) => null
       }
       
       spyOn(res, 'redirect')

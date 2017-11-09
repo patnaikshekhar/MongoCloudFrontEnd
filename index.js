@@ -14,3 +14,5 @@ app.listen(process.env.PORT || 3000, () => {
 })
 
 app.get('/', SessionManager.checkSession, routes.dashboard) 
+app.get('/login', routes.login)
+app.get('/googleauthcallback', routes.googleauthcallback)

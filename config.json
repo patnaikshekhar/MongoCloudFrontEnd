@@ -1,6 +1,6 @@
 {
   "SessionTimeout": 360000,
   "Region": "eu-west-2",
-  "GoogleAuthRedirectURI": "http://localhost:3000",
+  "GoogleAuthRedirectURI": "http://localhost:3000/googleauthcallback",
   "PORT": 3000
 }

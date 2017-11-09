@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test-watch": "jasmine-node --autotest --verbose --color .",
     "test": "jasmine-node --verbose --color .",
-    "coverage": "istanbul cover --include-all-sources jasmine-node .",
+    "coverage": "istanbul cover jasmine-node .",
     "docs": "documentation build index.js -f html -o docs"
   },
   "author": "",
@@ -16,7 +16,8 @@
     "aws-sdk": "^2.147.0",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "request": "^2.83.0"
   },
   "devDependencies": {
     "mock-require": "^2.0.2"
