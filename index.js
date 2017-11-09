@@ -2,8 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
-const routes = require('./routes')
-const SessionManager = require('./session')
+const routes = require('./lib/routes')
+const SessionManager = require('./lib/session')
 
 const app = express()
 app.use(bodyParser.json())

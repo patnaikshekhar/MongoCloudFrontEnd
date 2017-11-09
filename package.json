@@ -7,7 +7,8 @@
     "start": "node index.js",
     "test-watch": "jasmine-node --autotest --verbose --color .",
     "test": "jasmine-node --verbose --color .",
-    "coverage": "istanbul cover --include-all-sources jasmine-node ."
+    "coverage": "istanbul cover --include-all-sources jasmine-node .",
+    "docs": "documentation build index.js -f html -o docs"
   },
   "author": "",
   "license": "ISC",
