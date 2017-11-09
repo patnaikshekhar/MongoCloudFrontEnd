@@ -2,7 +2,7 @@ const mock = require('mock-require')
 
 const mockDBHelper = () => {
   return {
-    get: (table, key, callback) => {
+    get: (table, keyname, key, callback) => {
       if (key == '456') {
         callback({
           sessionId: key,

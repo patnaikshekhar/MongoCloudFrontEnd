@@ -1,3 +1,4 @@
 {
-  "SessionTimeout": 360000
+  "SessionTimeout": 360000,
+  "Region": "eu-west-2"
 }
