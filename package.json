@@ -20,6 +20,6 @@
     "request": "^2.83.0"
   },
   "devDependencies": {
-    "mock-require": "^2.0.2"
+    "proxyquire": "^1.8.0"
   }
 }

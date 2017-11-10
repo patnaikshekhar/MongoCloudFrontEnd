@@ -1,16 +1,16 @@
-const mock = require('mock-require')
+const proxyquire = require('proxyquire')
 
 const mockDBHelper = () => {
   return {
     get: (table, keyname, key, callback) => {
       if (key == '456') {
-        callback({
+        callback(null, {
           sessionId: key,
           sessionStart: Date.now(),
           customerId: 'test@test.com'
         })
       } else if (key == '789') {
-        callback({
+        callback(null, {
           sessionId: key,
           sessionStart: Date.now() - 370000,
           customerId: 'test@test.com'
@@ -23,9 +23,8 @@ const mockDBHelper = () => {
 }
 
 describe('Session Manager', () => {
-  
-  mock('../../lib/db', mockDBHelper())
-  const SM = require('../../lib/session')
+ 
+  const SM = proxyquire('../../lib/session', { './db' :  mockDBHelper()  })
 
   describe('checkValidSession', () => {
     
@@ -65,7 +64,7 @@ describe('Session Manager', () => {
     it('should execute the next function if valid cookie is passed and add customer id to request', (done) => {
       var req = { cookies: { sessionId: '456' } }
 
-      SM.checkSession(req, {}, () => {
+      SM.checkSession(req, { redirect: (location) => {} }, () => {
         expect(req.customerId).toBe('test@test.com')
         done()
       })
