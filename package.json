@@ -17,7 +17,8 @@
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "proxyquire": "^1.8.0"
