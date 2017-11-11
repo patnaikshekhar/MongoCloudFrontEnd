@@ -1,4 +1,5 @@
 const proxyquire = require('proxyquire')
+const SESSION_COOKIE = require('../../lib/constants').SESSION_COOKIE
 
 const mockDBHelper = {
   get: (table, keyname, key, callback) => {
@@ -64,7 +65,8 @@ describe('Session Manager', () => {
     })
 
     it('should execute the next function if valid cookie is passed and add customer id to request', (done) => {
-      var req = { cookies: { sessionId: '456' } }
+      var req = { cookies: {} }
+      req.cookies[SESSION_COOKIE] = '456'
 
       SM.checkSession(req, { redirect: (location) => {} }, () => {
         expect(req.customerId).toBe('test@test.com')
@@ -78,7 +80,8 @@ describe('Session Manager', () => {
       }
       
       spyOn(res, 'redirect')
-      var req = { cookies: { sessionId: '123' } }
+      var req = { cookies: {} }
+      req.cookies[SESSION_COOKIE] = '123'
 
       SM.checkSession(req, res, () => {})
       expect(res.redirect).toHaveBeenCalledWith('/login')
@@ -98,12 +101,12 @@ describe('Session Manager', () => {
       var res = {
         cookie: (key, value) => { console.log('Kye is', key) }
       }
-      
+
       spyOn(res, 'cookie')
 
       SM.createSession('1234', res, (err) => {        
         expect(err).toBe(null)
-        expect(res.cookie).toHaveBeenCalledWith('sessionId', jasmine.any(String))
+        expect(res.cookie).toHaveBeenCalledWith(SESSION_COOKIE, jasmine.any(String))
         done()
       })
     })

@@ -15,7 +15,7 @@ const googleauthStub = {
 }
 
 const sessionStub = {
-  createSession: (customerId, callback) => {
+  createSession: (customerId, res, callback) => {
     if (customerId == 'test@error.com') {
       callback('Error')
     } else {
@@ -56,7 +56,7 @@ describe('routes', () => {
       
       
       spyOn(res, 'end')
-      routes.googleauthcallback({ query: { token: '123' } }, res)
+      routes.googleauthcallback({ query: { code: '123' } }, res)
       
       expect(res.end).toHaveBeenCalled()
       done()
@@ -64,14 +64,14 @@ describe('routes', () => {
     
     it('should respond with an error page if create session fails', (done) => {
       spyOn(res, 'end')
-      routes.googleauthcallback({ query: { token: '456' } }, res)
+      routes.googleauthcallback({ query: { code: '456' } }, res)
       expect(res.end).toHaveBeenCalled()
       done()
     })
 
     it('should redirect once auth is completed', (done) => {
       spyOn(res, 'redirect')
-      routes.googleauthcallback({ query: { token: '789' } }, res)
+      routes.googleauthcallback({ query: { code: '789' } }, res)
       expect(res.redirect).toHaveBeenCalledWith('/')
       done()
     })

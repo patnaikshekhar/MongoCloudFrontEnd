@@ -1,3 +1,5 @@
 {
-  "SESSION_TABLE": "mongocloud_sessions"
+  "SESSION_TABLE": "mongocloud_sessions",
+  "USER_TABLE": "mongocloud_users",
+  "SESSION_COOKIE": "sessionId-pmongocloud"
 }

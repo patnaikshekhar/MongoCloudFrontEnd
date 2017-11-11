@@ -14,3 +14,16 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
+  UsersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: mongocloud_users
+      KeySchema:
+        - AttributeName: customerId
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: customerId
+          AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
