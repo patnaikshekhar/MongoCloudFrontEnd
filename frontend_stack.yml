@@ -27,3 +27,7 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
+   FrontendServer:
+     Type: AWS::EC2::Instance
+     Properties:
+       
