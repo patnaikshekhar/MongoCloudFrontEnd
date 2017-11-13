@@ -27,7 +27,21 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
-   FrontendServer:
-     Type: AWS::EC2::Instance
-     Properties:
+  InstancesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: mongocloud_instances
+      KeySchema:
+        - AttributeName: instanceId
+          KeyType: HASH
+        - AttributeName: customerId
+          KeyType: RANGE
+      AttributeDefinitions:
+        - AttributeName: instanceId
+          AttributeType: S
+        - AttributeName: customerId
+          AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
        
