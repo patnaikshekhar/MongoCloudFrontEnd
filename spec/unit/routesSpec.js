@@ -24,11 +24,20 @@ const sessionStub = {
   }
 }
 
+const instanceStub = {
+  getInstances: (customerId, callback) => callback(null, [{
+    instanceId: '1'
+  }, {
+    instanceId: '2'
+  }])
+}
+
 describe('routes', () => {
   
   const routes = proxyquire('../../lib/routes', {
     './googleauth': googleauthStub,
-    './session': sessionStub
+    './session': sessionStub,
+    './instanceManager': instanceStub
   })
   
   describe('login', () => {
@@ -73,6 +82,29 @@ describe('routes', () => {
       spyOn(res, 'redirect')
       routes.googleauthcallback({ query: { code: '789' } }, res)
       expect(res.redirect).toHaveBeenCalledWith('/')
+      done()
+    })
+  })
+
+  describe('getInstances', () => {
+    const res = {
+      json: (value) => {},
+      end: (value) => {}
+    }
+    
+    it('should return an error if no customer id is passed', (done) => {
+      var req = {}
+      spyOn(res, 'end')
+      routes.getInstances(req, res)
+      expect(res.end).toHaveBeenCalled()
+      done()
+    })
+
+    it('should return a list of instances', (done) => {
+      spyOn(res, 'json')
+      var req = { customerId: '123' }
+      routes.getInstances(req, res)
+      expect(res.json).toHaveBeenCalled()
       done()
     })
   })

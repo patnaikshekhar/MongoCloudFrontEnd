@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      <head>
+        <title>MongoCloud Dashboard</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" />
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" />
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+      </head>
+      <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">MongoCloud</a>
+        </nav>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Instance Id</th>
+            </tr>
+          </thead>
+          <tbody id="instances">
+          </tbody>
+        </table>
+
+        <script>
+          $.get('/instance', function(res) {
+            if (res) {
+              // Remove list of instances
+              $('#instances').empty();
+
+              // Add new instances
+              res.forEach(function(instance) {
+                var row = $('<tr>');
+                var col = $('<td>').text(instance.instanceId);
+                
+                row.append(col)
+                $('#instances').append(row);
+              });
+            }
+          });
+        </script>
+      </body>
+</html>

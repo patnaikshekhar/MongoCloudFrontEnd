@@ -2,14 +2,14 @@ const proxyquire = require('proxyquire')
 const SESSION_COOKIE = require('../../lib/constants').SESSION_COOKIE
 
 const mockDBHelper = {
-  get: (table, keyname, key, callback) => {
-    if (key == '456') {
+  get: (table, key, callback) => {
+    if (key.sessionId == '456') {
       callback(null, {
         sessionId: key,
         sessionStart: Date.now(),
         customerId: 'test@test.com'
       })
-    } else if (key == '789') {
+    } else if (key.sessionId == '789') {
       callback(null, {
         sessionId: key,
         sessionStart: Date.now() - 370000,

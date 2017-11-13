@@ -32,9 +32,9 @@ Resources:
     Properties:
       TableName: mongocloud_instances
       KeySchema:
-        - AttributeName: instanceId
-          KeyType: HASH
         - AttributeName: customerId
+          KeyType: HASH
+        - AttributeName: instanceId
           KeyType: RANGE
       AttributeDefinitions:
         - AttributeName: instanceId
