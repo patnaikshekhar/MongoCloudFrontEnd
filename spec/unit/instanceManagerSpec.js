@@ -1,4 +1,5 @@
 const proxyquire = require('proxyquire')
+const constants = require('../../lib/constants')
 
 const dbStub = {
   query: (table, expr, filter, callback) => {
@@ -9,6 +10,11 @@ const dbStub = {
       customerId: '2',
       instanceId: 'B'
     }])
+  },
+
+  put: (table, doc, callback) => {
+    console.log('Here in put')
+    callback(null, {})
   }
 }
 
@@ -27,6 +33,26 @@ describe('instancesManager', () => {
       IM.getInstances('123', (err, instances) => {
         expect(err).toBe(null)
         expect(instances.length).toBe(2)
+        done()
+      })
+    })
+  })
+
+  describe('createInstance', () => {
+    it('should return an error if no customer Id is passed', (done) => {
+      IM.createInstance(null, (err) => {
+        expect(err).not.toBe(null)
+        done()
+      })
+    })
+    
+    it('should create a record in the database with status of Creating', (done) => {
+      
+      spyOn(dbStub, 'put').andCallThrough()
+      
+      IM.createInstance('123', (err) => {
+        expect(dbStub.put).toHaveBeenCalledWith(constants.INSTANCES_TABLE, jasmine.any(Object), jasmine.any(Function))
+        expect(err).toBe(null)
         done()
       })
     })

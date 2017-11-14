@@ -44,4 +44,8 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
+  InstanceCreationQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: InstanceCreationQueue
        

@@ -2,5 +2,7 @@
   "SESSION_TABLE": "mongocloud_sessions",
   "USER_TABLE": "mongocloud_users",
   "INSTANCES_TABLE": "mongocloud_instances",
-  "SESSION_COOKIE": "sessionId-pmongocloud"
+  "SESSION_COOKIE": "sessionId-pmongocloud",
+  "CREATING_STATUS": "Creating",
+  "INSTANCE_CREATION_QUEUE": "InstanceCreationQueue"
 }

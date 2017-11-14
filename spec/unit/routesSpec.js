@@ -108,4 +108,18 @@ describe('routes', () => {
       done()
     })
   })
+
+  describe('createInstance', () => {
+    const res = {
+      end: (value) => {}
+    }
+
+    it('should return an error if no customer id is passed', (done) => {
+      spyOn(res, 'end')
+      var req = {}
+      routes.createInstance(req, res)
+      expect(res.end).toHaveBeenCalled()
+      done()
+    })
+  })
 })
