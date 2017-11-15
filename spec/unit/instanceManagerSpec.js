@@ -18,7 +18,16 @@ const dbStub = {
   }
 }
 
-const IM = proxyquire('../../lib/instanceManager', { './db': dbStub })
+const queueStub = {
+  sendMessage: (queueName, message, callback) => {
+    callback(null, {})
+  }
+}
+
+const IM = proxyquire('../../lib/instanceManager', { 
+  './db': dbStub,
+  './queue': queueStub
+})
 
 describe('instancesManager', () => {
   describe('getInstances', () => {
@@ -53,6 +62,18 @@ describe('instancesManager', () => {
       IM.createInstance('123', (err) => {
         expect(dbStub.put).toHaveBeenCalledWith(constants.INSTANCES_TABLE, jasmine.any(Object), jasmine.any(Function))
         expect(err).toBe(null)
+        done()
+      })
+    })
+
+    it('should place a message in the queue', (done) => {
+      
+      spyOn(queueStub, 'sendMessage').andCallThrough()
+
+      IM.createInstance('123', (err) => {
+        expect(queueStub.sendMessage).toHaveBeenCalledWith(
+          constants.INSTANCE_CREATION_QUEUE, jasmine.any(String), 
+          jasmine.any(Function))
         done()
       })
     })
