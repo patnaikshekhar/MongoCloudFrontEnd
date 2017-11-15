@@ -47,5 +47,8 @@ Resources:
   InstanceCreationQueue:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: InstanceCreationQueue
-       
+      QueueName: MongoCloudInstanceCreationQueue
+  Queue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: MongoCloudE2ETestQueue     

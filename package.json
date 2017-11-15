@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test-watch": "jasmine-node --autotest --verbose --color .",
+    "test-watch": "jasmine-node --autotest --verbose --captureExceptions --color .",
     "test": "jasmine-node --verbose --color .",
     "coverage": "istanbul cover jasmine-node .",
     "docs": "documentation build index.js -f html -o docs"
