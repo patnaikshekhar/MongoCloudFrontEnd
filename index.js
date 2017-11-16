@@ -18,3 +18,5 @@ app.get('/', SessionManager.checkSession, routes.dashboard)
 app.get('/login', routes.login)
 app.get('/googleauthcallback', routes.googleauthcallback)
 app.get('/instance', SessionManager.checkSession, routes.getInstances)
+app.post('/instance', SessionManager.checkSession, routes.createInstance)
+

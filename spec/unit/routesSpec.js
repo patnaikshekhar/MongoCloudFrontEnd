@@ -29,7 +29,11 @@ const instanceStub = {
     instanceId: '1'
   }, {
     instanceId: '2'
-  }])
+  }]),
+
+  createInstance: (req, res) => {
+    callback(null)
+  }
 }
 
 describe('routes', () => {
@@ -111,7 +115,8 @@ describe('routes', () => {
 
   describe('createInstance', () => {
     const res = {
-      end: (value) => {}
+      end: (value) => {},
+      json: (value) => {}
     }
 
     it('should return an error if no customer id is passed', (done) => {
@@ -119,6 +124,14 @@ describe('routes', () => {
       var req = {}
       routes.createInstance(req, res)
       expect(res.end).toHaveBeenCalled()
+      done()
+    })
+
+    it('should return no error if customer id is passed', (done) => {
+      spyOn(res, 'json') 
+      var req = { customerId: '123' }
+      routes.createInstance(req, res)
+      expect(res.json).toHaveBeenCalled()
       done()
     })
   })
