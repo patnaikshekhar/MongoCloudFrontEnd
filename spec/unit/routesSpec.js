@@ -31,7 +31,7 @@ const instanceStub = {
     instanceId: '2'
   }]),
 
-  createInstance: (req, res) => {
+  createInstance: (customerId, callback) => {
     callback(null)
   }
 }
