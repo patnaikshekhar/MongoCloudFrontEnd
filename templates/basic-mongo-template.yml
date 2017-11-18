@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Single Node Mongo Instance
+Resources:
+  Mongo:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-1a7f6d7e
+      InstanceType: t2.nano
+      KeyName: ec2-test
+      SecurityGroups:
+        - !Ref MongoSecurityGroup
+      UserData: !Base64 |
+        #!/bin/bash -x
+        yum -y install git
+        cat > /etc/yum.repos.d/mongodb-org-3.0.repo <<- EOM
+        [mongodb-org-3.0]
+        name=MongoDB Repository
+        baseurl=https://repo.mongodb.org/yum/amazon/2013.03/mongodb-org/3.0/x86_64/
+        gpgcheck=0
+        enabled=1
+        EOM
+        su - ec2-user <<EOF
+        curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+        nvm install 6
+        sudo yum install -y mongodb-org
+        sudo service mongod start
+        sudo chkconfig mongod on
+  MongoSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Mongo Ingress
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 27018
+          ToPort: 27018
+          CidrIp: 0.0.0.0/0
+        
