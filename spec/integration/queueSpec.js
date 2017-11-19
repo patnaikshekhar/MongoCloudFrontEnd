@@ -19,7 +19,6 @@ describe('queue', () => {
         queue.receiveMessage(TEST_QUEUE, (err, msgs) => {
           expect(err).toBe(null)
           expect(msgs.length).not.toBe(0)
-          console.log(msgs)
           msgs.forEach((msg) => msg.done())
           done()
         })

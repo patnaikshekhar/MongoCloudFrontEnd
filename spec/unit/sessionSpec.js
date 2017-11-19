@@ -99,7 +99,7 @@ describe('Session Manager', () => {
 
     it('should create a session in the db if customerid is passed', (done) => {
       var res = {
-        cookie: (key, value) => { console.log('Kye is', key) }
+        cookie: (key, value) => { }
       }
 
       spyOn(res, 'cookie')
