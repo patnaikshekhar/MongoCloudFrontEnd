@@ -23,6 +23,7 @@ Resources:
         curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
         nvm install 6
         sudo yum install -y mongodb-org
+        sudo sed -i.bak 's/\(bindIp:\).*/\1 0.0.0.0/' /etc/mongod.conf
         sudo service mongod start
         sudo chkconfig mongod on
   MongoSecurityGroup:
@@ -35,7 +36,10 @@ Resources:
           ToPort: 22
           CidrIp: 0.0.0.0/0
         - IpProtocol: tcp
-          FromPort: 27018
+          FromPort: 27017
           ToPort: 27018
           CidrIp: 0.0.0.0/0
-        
+Outputs:
+  HostName:
+    Description: Host Name of instance where service is running
+    Value: !GetAtt Mongo.PublicDnsName
