@@ -26,6 +26,7 @@ describe('stack', () => {
 
     it('should deploy the stack when template file is valid', (done) => {
       stack.createStack('test', `${__dirname}/../../${CONSTANTS.SINGLE_NODE_TEMPLATE}`, (err, data) => {
+        console.log(data)
         expect(err).toBe(null)
         expect(data).not.toBe(null)
         done()
