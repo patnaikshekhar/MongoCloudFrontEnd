@@ -31,6 +31,6 @@ describe('stack', () => {
         expect(data).not.toBe(null)
         done()
       })
-    })
+    }, 2000)
   })
 })
