@@ -29,8 +29,11 @@ describe('stack', () => {
         console.log(data)
         expect(err).toBe(null)
         expect(data).not.toBe(null)
-        done()
+        stack.deleteStack('test', (err) => {
+          expect(data).not.toBe(null)
+          done()
+        })
       })
-    }, 2000)
+    })
   })
 })
